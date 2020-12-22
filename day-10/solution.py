@@ -15,7 +15,7 @@ def radians_to_angles(radians):
 
 def main():
     """ solution for Day #10 """
-    filename="puzzle_test.txt" if len(sys.argv) < 2 else sys.argv[1]
+    filename="puzzle_input.txt" if len(sys.argv) < 2 else sys.argv[1]
     file_input = open(filename).readlines()
     astro_map = set()
     astro_dict = dict()
@@ -48,6 +48,7 @@ def main():
 
     count = 0
 
+    # build a dictionary of angles storing each asteriod and distances from station
     for coord in astro_map:
         if coord == best_coord:
             continue
@@ -70,8 +71,9 @@ def main():
     # laser points up and goes clockwise (90° -> 360°, 360° -> 90°)
     # create split angles array ≥ 90° and < 90° then append < 90° to ≥ 90°
     angles = [x for x in angles if x >= 90] + [x for x in angles if x < 90]
-    print(angles)
 
+    # TODO optimize/cleanup
+    # search through all valid angles destroying the first nearest asteroid and reset back to 90°
     i = -1
     test = 1
     while count > 0:
@@ -81,18 +83,13 @@ def main():
         if not angle_dict[angle]:
             continue
         item = angle_dict[angle][0]
-
+        # stop and report at the 200th asteroid
         if test == 200:
             print("part #2 200th:", item[0], (item[0][0]*100) + item[0][1])
             break
-
         test += 1
-
-        print(item)
         del(angle_dict[angle][0])
         count -= 1
-
-
 
 if __name__ == "__main__":
     main()
