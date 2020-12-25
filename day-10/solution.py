@@ -6,7 +6,7 @@
 import sys
 import math
 
-def radians_to_angles(radians):
+def radians_to_degrees(radians):
     """ normalize radians to 360° system"""
     angle = math.degrees(radians) + 180
     if angle == 360:
@@ -32,7 +32,7 @@ def main():
             if coord == coord2:
                 continue
             # get angle between asteroids at coord and coord2
-            angle = radians_to_angles(math.atan2(coord[1]-coord2[1],coord[0]-coord2[0]))
+            angle = radians_to_degrees(math.atan2(coord[1]-coord2[1],coord[0]-coord2[0]))
             # only store if unique
             # asteroids at same angle may occlude each other, so store only one angle
             # angle count is equivalent to visible asteroid count
@@ -53,7 +53,7 @@ def main():
         if coord == best_coord:
             continue
         count += 1
-        angle = radians_to_angles(math.atan2(coord[1]-best_coord[1], coord[0]-best_coord[0]))
+        angle = radians_to_degrees(math.atan2(coord[1]-best_coord[1], coord[0]-best_coord[0]))
         distance = math.sqrt(((best_coord[0]-coord[0])**2) + ((best_coord[1]-coord[1])**2))
         if angle in angle_dict:
             angle_dict[angle].append((coord, distance))
